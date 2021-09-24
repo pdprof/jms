@@ -1,0 +1,9 @@
+FROM ibmcom/mq
+USER 0
+RUN groupadd mqm -g 1001 && \
+    useradd mqm -u 1001 -g mqm -G root && \
+    echo mqm:passw0rd | chpasswd
+RUN useradd myuser -g mqm && \
+    echo myuser:passw0rd | chpasswd
+USER 1001
+COPY config.mqsc /etc/mqm/

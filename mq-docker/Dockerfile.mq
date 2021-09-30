@@ -7,3 +7,4 @@ RUN useradd myuser -g mqm && \
     echo myuser:passw0rd | chpasswd
 USER 1001
 COPY config.mqsc /etc/mqm/
+COPY setauth.sh /etc/mqm/

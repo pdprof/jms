@@ -1,10 +1,5 @@
+# https://developer.ibm.com/tutorials/mq-connect-app-queue-manager-containers/
 FROM ibmcom/mq
-USER 0
-RUN groupadd mqm -g 1001 && \
-    useradd mqm -u 1001 -g mqm -G root && \
-    echo mqm:passw0rd | chpasswd
-RUN useradd myuser -g mqm && \
-    echo myuser:passw0rd | chpasswd
-USER 1001
-COPY config.mqsc /etc/mqm/
-COPY setauth.sh /etc/mqm/
+env LICENSE accept
+env MQ_QMGR_NAME QM1
+env MQ_APP_PASSWORD passw0rd

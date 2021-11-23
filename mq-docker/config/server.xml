@@ -1,33 +1,44 @@
 <server>
-   <featureManager>
-        <feature>ejb-3.2</feature>
-        <feature>localConnector-1.0</feature>
-        <feature>wmqJmsClient-2.0</feature>
-        <feature>servlet-4.0</feature>
+    <featureManager>
+	<feature>ejb-3.2</feature>
+	<feature>localConnector-1.0</feature>
+	<feature>wmqJmsClient-2.0</feature>
+	<feature>servlet-4.0</feature>
+	<feature>jsp-2.3</feature>
+        <feature>wasJmsClient-2.0</feature>
     </featureManager>
-   
-   <httpEndpoint host="localhost" httpPort="9128" httpsPort="9129" id="defaultHttpEndpoint">
-   </httpEndpoint>   
 
-   <variable name="wmqJmsClient.rar.location"
-	   value="/home/kenoi/mq/wmq/wmq.jmsra.rar" />
+	<httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint">
+	</httpEndpoint>
 
-   <jmsQueueConnectionFactory connectionManagerRef="ConMgr6" containerAuthDataRef="appAuth" jndiName="jndi_JMS_BASE_QCF">
-	   <properties.wmqJms channel="DEV.APP.SVRCONN"
-             hostName="localhost" port="1414" queueManager="QM1"
-             transportType="CLIENT" />
-   </jmsQueueConnectionFactory>
-   <connectionManager id="ConMgr6" maxPoolSize="5"/>
-   <authData id="appAuth" user="app" password="passw0rd"/>
+	<!-- https://repo1.maven.org/maven2/com/ibm/mq/wmq.jmsra/9.2.4.0/wmq.jmsra-9.2.4.0.rar -->
+	<variable name="wmqJmsClient.rar.location" value="C:/Users/k_oi/git/wmq.jmsra.rar"/>
+	
+	<jmsActivationSpec authDataRef="appAuth" id="jms/PdprofMdb">
+		<properties.wmqJms channel="DEV.APP.SVRCONN" destinationRef="Q3" hostName="localhost" port="1414" queueManager="QM1" transportType="CLIENT"/>
+	</jmsActivationSpec>
+	
+	<jmsQueueConnectionFactory connectionManagerRef="ConMgr6" containerAuthDataRef="appAuth" jndiName="QCF">
+		<properties.wmqJms channel="DEV.APP.SVRCONN" hostName="localhost" port="1414" queueManager="QM1" transportType="CLIENT"/>
+	</jmsQueueConnectionFactory>
+	<connectionManager id="ConMgr6" maxPoolSize="5"/>
+	<authData id="appAuth" password="passw0rd" user="app"/>
 
-   <jmsQueue jndiName="jndi_INPUT_Q">
-        <properties.wmqJms baseQueueManagerName="QM1"
-            baseQueueName="DEV.QUEUE.1" />
-   </jmsQueue>
+	<jmsQueue jndiName="Q1">
+		<properties.wmqJms baseQueueManagerName="QM1" baseQueueName="DEV.QUEUE.1"/>
+	</jmsQueue>
 
-   <applicationMonitor updateTrigger="mbean"/>
+	<jmsQueue id="Q2" jndiName="Q2">
+		<properties.wmqJms baseQueueManagerName="QM1" baseQueueName="DEV.QUEUE.2"/>
+	</jmsQueue>
 
-   <enterpriseApplication id="jms11" location="jms11.ear" name="jms11"/>
+	<jmsQueue id="Q3" jndiName="Q3">
+		<properties.wmqJms baseQueueManagerName="QM1" baseQueueName="DEV.QUEUE.3"/>
+	</jmsQueue>
+
+	<applicationMonitor updateTrigger="mbean"/>
+
+	<webApplication id="jms" location="jms.war" name="jms"/>
 
    <logging  traceSpecification="JMSApi=all:WAS.j2c=all:Transaction=all:com.ibm.ws.transaction.services.WebAppTransactionCollaboratorImpl=all"
       traceFileName="trace.log"

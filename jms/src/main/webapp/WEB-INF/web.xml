@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+	<display-name>jms</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
+		<res-ref-name>QCF</res-ref-name>
+		<res-type>javax.jms.QueueConnectionFactory</res-type>
+		<lookup-name>QCF</lookup-name>
+	</resource-ref>
+
+	<resource-env-ref>
+		<resource-env-ref-name>Q1</resource-env-ref-name>
+		<resource-env-ref-type>javax.jms.Queue</resource-env-ref-type>
+	</resource-env-ref>
+
+	<resource-env-ref>
+		<resource-env-ref-name>Q2</resource-env-ref-name>
+		<resource-env-ref-type>javax.jms.Queue</resource-env-ref-type>
+	</resource-env-ref>
+
+	<resource-env-ref>
+		<resource-env-ref-name>Q3</resource-env-ref-name>
+		<resource-env-ref-type>javax.jms.Queue</resource-env-ref-type>
+	</resource-env-ref>
+</web-app>

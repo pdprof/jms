@@ -12,7 +12,7 @@
 	</httpEndpoint>
 
 	<!-- https://repo1.maven.org/maven2/com/ibm/mq/wmq.jmsra/9.2.4.0/wmq.jmsra-9.2.4.0.rar -->
-	<variable name="wmqJmsClient.rar.location" value="C:/Users/k_oi/git/wmq.jmsra.rar"/>
+	<variable name="wmqJmsClient.rar.location" value="/output/resources/wmq.jmsra.rar"/>
 	
 	<jmsActivationSpec authDataRef="appAuth" id="jms/PdprofMdb">
 		<properties.wmqJms channel="DEV.APP.SVRCONN" destinationRef="Q3" hostName="localhost" port="1414" queueManager="QM1" transportType="CLIENT"/>
@@ -40,7 +40,7 @@
 
 	<webApplication id="jms" location="jms.war" name="jms"/>
 
-   <logging  traceSpecification="JMSApi=all:WAS.j2c=all:Transaction=all:com.ibm.ws.transaction.services.WebAppTransactionCollaboratorImpl=all"
+   <logging  traceSpecification="*=info"
       traceFileName="trace.log"
       maxFileSize="20"
       maxFiles="10"

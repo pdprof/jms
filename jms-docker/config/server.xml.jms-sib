@@ -1,0 +1,58 @@
+<server>
+	<featureManager>
+		<feature>wasJmsServer-1.0</feature>
+		<feature>jmsMdb-3.2</feature>
+	</featureManager>
+
+
+	<wasJmsEndpoint id="InboundJmsCommsEndpoint" host="*"
+		wasJmsPort="7276"
+		wasJmsSSLPort="7286" />
+
+	<messagingEngine>
+		<queue id="Q1">
+		</queue>
+
+		<queue id="Q2">
+		</queue>
+
+		<queue id="Q3">
+		</queue>
+	</messagingEngine>
+
+	<jmsActivationSpec id="jms/PdprofMdb">
+		<properties.wasJms destinationRef="Q3" />
+	</jmsActivationSpec>
+
+
+	<jmsTopicConnectionFactory jndiName="TCF"
+		connectionManagerRef="ConMgr3" clientID="clientId1">
+		<properties.wasJms />
+	</jmsTopicConnectionFactory>
+	<connectionManager id="ConMgr3" maxPoolSize="5" />
+
+	<jmsTopic jndiName="T1">
+		<properties.wasJms topicName="T1"  />
+	</jmsTopic>
+
+
+	<jmsQueueConnectionFactory jndiName="QCF"
+		connectionManagerRef="ConMgr6">
+		<properties.wasJms/>
+	</jmsQueueConnectionFactory>
+
+	<connectionManager id="ConMgr6" maxPoolSize="5" />
+
+	<jmsQueue id="Q1" jndiName="Q1">
+		<properties.wasJms queueName="Q1" />
+	</jmsQueue>
+
+	<jmsQueue id="Q2" jndiName="Q2">
+		<properties.wasJms queueName="Q2" />
+	</jmsQueue>
+
+	<jmsQueue id="Q3" jndiName="Q3">
+		<properties.wasJms queueName="Q3" />
+	</jmsQueue>
+
+</server>

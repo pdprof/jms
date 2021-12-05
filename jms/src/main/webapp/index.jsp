@@ -24,7 +24,7 @@
 				<td><select name="q">
 						<option value="Q1">Q1 (default)</option>
 						<option value="Q2">Q2 (2nd queue)</option>
-						<option value="Q2">Q3 (mdb queue)</option>
+						<option value="Q3">Q3 (mdb queue)</option>
 				</select></td>
 			</tr>
 			<tr>

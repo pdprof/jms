@@ -8,7 +8,7 @@
 DOCKER_HOST=192.168.122.1
 
 # Setup for MQ
-docker build -t mq -f Dockerfile.mq .
+docker build -t mymq -f Dockerfile.mq .
 sed s/localhost/$DOCKER_HOST/g config/server.xml.jms-mq > config/server.xml
 docker build -t jms-mq -f Dockerfile.jms-mq .
 rm config/server.xml

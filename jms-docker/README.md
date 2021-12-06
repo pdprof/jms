@@ -29,7 +29,7 @@ To start JMS client for each server. All jms server use 9080 and 9443 ports. Ple
 mkdir ~/pdprof
 ./jms-amq-start.sh
 ./jms-mq-start.sh
-./jms-sib-client.sh
+./jms-sib-client-start.sh
 ```
 
 Now you can access http://localhost:9080/jms/

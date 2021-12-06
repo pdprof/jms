@@ -1,0 +1,230 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jms-mq-deployment
+  labels:
+    app: jms-mq
+spec:
+  selector:
+    matchLabels:
+      app: jms-mq
+  template:
+    metadata:
+      labels:
+        app: jms-mq
+    spec:
+      containers:
+      - name: jms-mq-container
+        image: default-route-openshift-image-registry.apps-crc.testing/default/jms-mq:20211206
+        ports:
+        - containerPort: 9080
+      imagePullSecrets:
+      - name: docker-user-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jms-sib-client-deployment
+  labels:
+    app: jms-sib-client
+spec:
+  selector:
+    matchLabels:
+      app: jms-sib-client
+  template:
+    metadata:
+      labels:
+        app: jms-sib-client
+    spec:
+      containers:
+      - name: jms-sib-client-container
+        image: default-route-openshift-image-registry.apps-crc.testing/default/jms-sib-client:20211206
+        ports:
+        - containerPort: 9080
+      imagePullSecrets:
+      - name: docker-user-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jms-amq-deployment
+  labels:
+    app: jms-amq
+spec:
+  selector:
+    matchLabels:
+      app: jms-amq
+  template:
+    metadata:
+      labels:
+        app: jms-amq
+    spec:
+      containers:
+      - name: jms-amq-container
+        image: default-route-openshift-image-registry.apps-crc.testing/default/jms-amq:20211206
+        ports:
+        - containerPort: 9080
+      imagePullSecrets:
+      - name: docker-user-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mq-deployment
+  labels:
+    app: mq
+spec:
+  selector:
+    matchLabels:
+      app: mq
+  template:
+    metadata:
+      labels:
+        app: mq
+    spec:
+      containers:
+      - name: mq-container
+        image: default-route-openshift-image-registry.apps-crc.testing/default/mymq:20211206
+        ports:
+        - containerPort: 1414
+      imagePullSecrets:
+      - name: docker-user-secret
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sib-deployment
+  labels:
+    app: sib
+spec:
+  selector:
+    matchLabels:
+      app: sib
+  template:
+    metadata:
+      labels:
+        app: sib
+    spec:
+      containers:
+      - name: sib-container
+        image: default-route-openshift-image-registry.apps-crc.testing/default/jms-sib:20211206
+        ports:
+        - containerPort: 7276
+      imagePullSecrets:
+      - name: docker-user-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amq-deployment
+  labels:
+    app: amq
+spec:
+  selector:
+    matchLabels:
+      app: amq
+  template:
+    metadata:
+      labels:
+        app: amq
+    spec:
+      containers:
+      - name: amq-container
+        image: default-route-openshift-image-registry.apps-crc.testing/default/amq:20211206
+        ports:
+        - containerPort: 61616
+      imagePullSecrets:
+      - name: docker-user-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jms-mq-service
+spec:
+  selector:
+    app: jms-mq
+  ports:
+  - protocol: TCP
+    port: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jms-sib-client-service
+spec:
+  selector:
+    app: jms-sib-client
+  ports:
+  - protocol: TCP
+    port: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jms-amq-service
+spec:
+  selector:
+    app: jms-amq
+  ports:
+  - protocol: TCP
+    port: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mq-service
+spec:
+  selector:
+    app: mq
+  ports:
+  - protocol: TCP
+    port: 1414
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sib-service
+spec:
+  selector:
+    app: sib
+  ports:
+  - protocol: TCP
+    port: 7276
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amq-service
+spec:
+  selector:
+    app: amq
+  ports:
+  - protocol: TCP
+    port: 61616
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: jms-mq-route
+spec:
+  to:
+    kind: Service
+    name: jms-mq-service
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: jms-sib-client-route
+spec:
+  to:
+    kind: Service
+    name: jms-sib-client-service
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: jms-amq-route
+spec:
+  to:
+    kind: Service
+    name: jms-amq-service

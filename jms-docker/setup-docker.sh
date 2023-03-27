@@ -4,8 +4,10 @@
 #if test $network -lt 1; then
 #    docker network create pdprof-network
 #fi
-
-ACCESS_HOST=192.168.122.1
+if [ -z $ACCESS_HOST ]; then
+   echo 'Please set the "ACCESS_HOST" environment variable and try again.'
+   exit 2
+fi
 
 # Setup for MQ
 docker build -t mymq -f Dockerfile.mq .

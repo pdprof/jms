@@ -9,7 +9,7 @@
 ### Build docker image
 
 ```
-vi setup-docker.sh # Edit DOCKER_HOST ip address for your environment
+vi setup-docker.sh # Edit ACCESS_HOST ip address for your environment
 ./setup-docker.sh
 ```
 

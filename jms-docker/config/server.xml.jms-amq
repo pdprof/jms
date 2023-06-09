@@ -2,7 +2,6 @@
     <featureManager>
 	<feature>ejb-3.2</feature>
 	<feature>localConnector-1.0</feature>
-	<feature>wmqJmsClient-2.0</feature>
 	<feature>servlet-4.0</feature>
 	<feature>jsp-2.3</feature>
         <feature>wasJmsClient-2.0</feature>

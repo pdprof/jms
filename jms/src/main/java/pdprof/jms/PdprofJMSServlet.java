@@ -91,9 +91,10 @@ public class PdprofJMSServlet extends HttpServlet {
 		msg.setText(m);
 
 		send.send(msg);
+		sessionSender.commit();
 		System.out.println("= PdprofJMSServlet.send to queue:" + q);
 		out.println("= PdprofJMSServlet.send to queue:" + q);
-
+		
 		if (con != null)
 			con.close();
 		System.out.println("< PdprofJMSServlet.send");

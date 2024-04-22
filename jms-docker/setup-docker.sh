@@ -25,3 +25,8 @@ rm config/server.xml
 sed s/localhost/$ACCESS_HOST/g config/server.xml.jms-amq > config/server.xml
 docker build -t jms-amq -f Dockerfile.jms-amq .
 rm config/server.xml
+
+# Setup for ActiveMQ
+sed s/localhost/$ACCESS_HOST/g config/server.xml.jms-artemis > config/server.xml
+docker build -t jms-artemis -f Dockerfile.jms-artemis .
+rm config/server.xml

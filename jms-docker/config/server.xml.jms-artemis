@@ -1,0 +1,48 @@
+<server>
+    <featureManager>
+	<feature>ejb-3.2</feature>
+	<feature>localConnector-1.0</feature>
+	<feature>servlet-4.0</feature>
+	<feature>jsp-2.3</feature>
+    <feature>wasJmsClient-2.0</feature>
+    </featureManager>
+
+	<httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint">
+	</httpEndpoint>
+ 
+    <resourceAdapter id="artemis" location="/output/resources/artemis.rar">
+        <properties.artemis connectionParameters="host=localhost;port=61616" />
+    </resourceAdapter>
+	
+	<jmsActivationSpec id="jms/PdprofMdb">
+		<properties.artemis destinationRef="Q3" destinationType="javax.jms.Queue"/>
+	</jmsActivationSpec>
+	
+	<connectionFactory connectionManagerRef="ConMgr6" jndiName="QCF">
+		<properties.artemis/>
+	</connectionFactory>
+	<connectionManager id="ConMgr6" maxPoolSize="5"/>
+
+	<jmsQueue jndiName="Q1">
+		<properties.artemis Address="Q1"/>
+	</jmsQueue>
+
+	<jmsQueue id="Q2" jndiName="Q2">
+		<properties.artemis Address="Q2"/>
+	</jmsQueue>
+
+	<jmsQueue id="Q3" jndiName="Q3">
+		<properties.artemis Address="Q3"/>
+	</jmsQueue>
+
+	<applicationMonitor updateTrigger="mbean"/>
+
+	<webApplication id="jms" location="jms.war" name="jms"/>
+
+   <logging  traceSpecification="*=info"
+      traceFileName="trace.log"
+      maxFileSize="20"
+      maxFiles="10"
+      traceFormat="BASIC" />
+
+</server>
